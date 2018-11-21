@@ -24,6 +24,7 @@ import javax.swing.JButton;
 public class cancelWindow {
 
 	private JFrame frame;
+	private ArrayList<String> updatedArrayList = new ArrayList<String>();
 
 	/**
 	 * Launch the application.
@@ -46,6 +47,36 @@ public class cancelWindow {
 	 */
 	public cancelWindow() {
 		initialize();
+	}
+	
+	// Convert DefaultListModel to ArrayList
+	public ArrayList<String> test(DefaultListModel obj) {
+		ArrayList<String> temp = new ArrayList<String>();
+		for(int count = 0; count < obj.getSize(); count++)
+		{
+			temp.add((String)obj.getElementAt(count));
+		}
+		/* for printing out the values
+		for(int count = 0; count < temp.size(); count++)
+		{
+			System.out.println(temp.get(count));
+		}
+		*/
+		return temp;
+	}
+	
+	// prints what's inside the ArrayList
+	public void printArrayList(ArrayList<String> list) {
+		// Printing out the value to see if it works
+		for(int count = 0; count < list.size(); count++)
+		{
+			System.out.println(list.get(count));
+		}
+	}
+	
+	// returns the updated ArrayList
+	public ArrayList<String> returnArrayList() {
+		return updatedArrayList;
 	}
 
 	/**
@@ -140,10 +171,18 @@ public class cancelWindow {
 		JPanel emptyPanel4 = new JPanel();
 		cancelButtonPanel.add(emptyPanel4);
 	
+		//ArrayList<String> updatedArrayList = new ArrayList<String>();
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updatedArrayList.clear();
 				obj.removeElementAt(list.getSelectedIndex());
+				ArrayList<String> store = test(obj);
+				for (int count = 0; count < store.size(); count++)
+				{
+					updatedArrayList.add(store.get(count));
+				}
+				printArrayList(updatedArrayList);
 			}
 		});
 		cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
