@@ -1,4 +1,5 @@
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -9,7 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.border.EmptyBorder;
@@ -86,11 +91,27 @@ public class cancelWindow {
 		scrollPane.setViewportView(listPanel);
 		listPanel.setLayout(new BorderLayout(0, 0));
 		
+		//testing out stuff
+		DefaultListModel obj = new DefaultListModel();
+		ArrayList<String> arraySchedule = new ArrayList<String>();
+		String[] values = {"1", "23", "4", "23", "4", "234", "235", "", "235", "23", "34", "23", "4", "23", "42", "34", "", "1", "42"};
+		// add array elements to arrayList
+		for (int count = 0; count < values.length; count++)
+		{
+			arraySchedule.add(values[count]);
+		}
+		// add arrayList to obj
+		for (int count = 0; count < arraySchedule.size(); count++)
+		{
+			obj.addElement(arraySchedule.get(count));
+		}
+		
+		JList list = new JList();
+		list.setModel(obj);
+	
+		/*
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
-			/* These are dummy values, this needs to be changed to our List, we can use a for loop to add it into an arrayList and set that as the arrayList to be shown on 
-			 * the list
-			 */
 			String[] values = new String[] {"1", "23", "4", "23", "4", "234", "235", "", "235", "23", "34", "23", "4", "23", "42", "34", "", "1", "42"};
 			public int getSize() {
 				return values.length;
@@ -99,6 +120,8 @@ public class cancelWindow {
 				return values[index];
 			}
 		});
+		*/
+		
 		listPanel.add(list, BorderLayout.CENTER);
 		
 		JPanel cancelButtonPanel = new JPanel();
@@ -116,10 +139,13 @@ public class cancelWindow {
 		
 		JPanel emptyPanel4 = new JPanel();
 		cancelButtonPanel.add(emptyPanel4);
-		/*
-		 * We need to add an action listener that removes the index we select using the button
-		 */
+	
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				obj.removeElementAt(list.getSelectedIndex());
+			}
+		});
 		cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		cancelButtonPanel.add(cancelButton);
 		
