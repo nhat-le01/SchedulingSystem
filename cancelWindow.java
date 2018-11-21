@@ -175,14 +175,21 @@ public class cancelWindow {
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updatedArrayList.clear();
-				obj.removeElementAt(list.getSelectedIndex());
-				ArrayList<String> store = test(obj);
-				for (int count = 0; count < store.size(); count++)
+				if (list.getSelectedIndex() == -1)
 				{
-					updatedArrayList.add(store.get(count));
+					// Do nothing
 				}
-				printArrayList(updatedArrayList);
+				else
+				{
+					updatedArrayList.clear();
+					obj.removeElementAt(list.getSelectedIndex());
+					ArrayList<String> store = test(obj);
+					for (int count = 0; count < store.size(); count++)
+					{
+						updatedArrayList.add(store.get(count));
+					}
+					printArrayList(updatedArrayList);
+				}
 			}
 		});
 		cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
