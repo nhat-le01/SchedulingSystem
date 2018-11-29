@@ -16,6 +16,13 @@ public class CheckConflictTester {
 		String test = "hi";
 		Color color = Color.BLUE;
 		Color color2 = Color.RED;
+		// ConflictChecker
+		CalendarEventClone testSingle = new CalendarEventClone(timestamp, timestamp, test, color2);
+		CalendarEventClone testSingle2 = new CalendarEventClone(timestamp, timestamp2, test, color2);
+		ConflictChecker singleTest = new ConflictChecker(testSingle, testSingle);
+		System.out.println(singleTest.check());
+		ConflictChecker singleTest2 = new ConflictChecker(testSingle, testSingle2);
+		System.out.println(singleTest2.check());
 		
 		// Add stuff to list
 		appointmentsList.add(new CalendarEventClone(timestamp, timestamp, test, color));
