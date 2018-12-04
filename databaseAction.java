@@ -1,11 +1,14 @@
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.*;
 import java.awt.*;
+import java.io.FileWriter;
 
 public class databaseAction {
 	public databaseAction() {
@@ -79,8 +82,9 @@ public class databaseAction {
 			int last_id = 0;
 			if (!rset.next()) {
 				// the set is empty
-				//String first_user = "insert into clients " + "values (0, " + username + ", " + password + " )";
-				//String temp = "insert into clients values(0, ?, ?)";
+				// String first_user = "insert into clients " + "values (0, " + username + ", "
+				// + password + " )";
+				// String temp = "insert into clients values(0, ?, ?)";
 				PreparedStatement prep = conn.prepareStatement("insert into clients values(0, ?, ?, ?, ?)");
 				System.out.println("empty");
 				prep.setString(1, username);
@@ -113,7 +117,7 @@ public class databaseAction {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public static void changePassword(int id, String newpassword) {
 		Connection conn = myConnection.getConnection();
 		try {
@@ -121,12 +125,11 @@ public class databaseAction {
 			prep.setString(1, newpassword);
 			prep.setInt(2, id);
 			prep.executeUpdate();
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 	}
-	
-	
+
 	public static void changePhoneNumber(int id, String newPhoneNumber) {
 		Connection conn = myConnection.getConnection();
 		try {
@@ -134,11 +137,11 @@ public class databaseAction {
 			prep.setString(1, newPhoneNumber);
 			prep.setInt(2, id);
 			prep.executeUpdate();
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public static void changeEmail(int id, String newEmail) {
 		Connection conn = myConnection.getConnection();
 		try {
@@ -146,10 +149,11 @@ public class databaseAction {
 			prep.setString(1, newEmail);
 			prep.setInt(2, id);
 			prep.executeUpdate();
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 	}
+
 	public static void changeUsername(int id, String newusername) {
 		Connection conn = myConnection.getConnection();
 		try {
@@ -157,11 +161,11 @@ public class databaseAction {
 			prep.setString(1, newusername);
 			prep.setInt(2, id);
 			prep.executeUpdate();
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public static int getIdGivenUsername(String username) {
 		Connection conn = myConnection.getConnection();
 		int result = 0;
@@ -178,71 +182,188 @@ public class databaseAction {
 
 		return result;
 	}
-	
+
 	public static void getAppointmentsGivenId(int id) {
-		
+
 	}
-	
-	public static void addAppointment(int id, int day, int month, int year, int hour, int minute, String description) {
-		//Date date = new Date(year, month, day);
-		
-		Calendar cale = new GregorianCalendar();
-	    cale.set(Calendar.YEAR, year);
-	    cale.set(Calendar.MONTH, month - 1);
-	    cale.set(Calendar.DATE, day);
-	    cale.set(Calendar.HOUR_OF_DAY, hour);
-	    cale.set(Calendar.MINUTE, minute);
-	    
-	    Timestamp ts = new Timestamp(cale.getTimeInMillis());
-	    
-	    
+
+	public static void addAppointment(int id, Timestamp start, Timestamp end, String description) {
 		Connection conn = myConnection.getConnection();
 		try {
 			Statement stmt = conn.createStatement();
-			//String updateQuery = "insert into appointments " + "values('" + id + "', '" + begin + "', '" + end + "', "
-					//+ description + ")";
-			String updateQuery = "insert into appointments values (?, ?, ?)";
-			PreparedStatement prep  = conn.prepareStatement("insert into appointments values (?, ?, ?)");
+			String updateQuery = "insert into appointments values (?, ?, ?, ?)";
+			PreparedStatement prep = conn.prepareStatement("insert into appointments values (?, ?, ?, ?)");
 			prep.setInt(1, id);
-			prep.setTimestamp(2, ts);
-			prep.setString(3, description);
+			prep.setTimestamp(2, start);
+			prep.setTimestamp(3, end);
+			prep.setString(4, description);
 			prep.executeUpdate();
-			//int updateCounted = stmt.executeUpdate(updateQuery);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 	}
-	
-	//public static void add
-	//Cancel an appointment given a timestamp
-	public void cancelAppointment(Timestamp ts) {
-		
+	//A function to check if a new appointment is conflict with existing appointments
+	public static boolean isConflict(int id, CalendarEvent newEvent) {
+		ArrayList<CalendarEvent> currentEvents = getAllAppointments(id);
+		for (CalendarEvent e : currentEvents) {
+			LocalTime s = e.getStart();
+			LocalTime en = e.getEnd();
+			if (s.isBefore(newEvent.getStart()) && newEvent.getStart().isBefore(en)) {
+				return true;
+			}
+			else if (newEvent.getEnd().isAfter(s) && newEvent.getStart().isBefore(s)) {
+				return true;
+			}
+		}
+		return false;
 	}
-	
-	public void exportScheduleToAFile(int id) {
-		Connection conn = myConnection.getConnection();
-	}
-	
-	public ArrayList<CalendarEventClone> getAllAppointments(int id) {
-		ArrayList<CalendarEventClone> events = new ArrayList<CalendarEventClone>();
+	public static void addAppointment(int id, int day, int month, int year, int hour, int minute, String description) {
+		// Date date = new Date(year, month, day);
+
+		Calendar cale = new GregorianCalendar();
+		cale.set(Calendar.YEAR, year);
+		cale.set(Calendar.MONTH, month - 1);
+		cale.set(Calendar.DATE, day);
+		cale.set(Calendar.HOUR_OF_DAY, hour);
+		cale.set(Calendar.MINUTE, minute);
+
+		Timestamp ts = new Timestamp(cale.getTimeInMillis());
+
 		Connection conn = myConnection.getConnection();
 		try {
 			Statement stmt = conn.createStatement();
-			PreparedStatement prep = conn.prepareStatement("select start, end, description from appointments where id = ?");
+			// String updateQuery = "insert into appointments " + "values('" + id + "', '" +
+			// begin + "', '" + end + "', "
+			// + description + ")";
+			// String updateQuery = "insert into appointments values (?, ?, ?)";
+			PreparedStatement prep = conn.prepareStatement("insert into appointments values (?, ?, ?)");
+			prep.setInt(1, id);
+			prep.setTimestamp(2, ts);
+			prep.setString(3, description);
+			prep.executeUpdate();
+			// int updateCounted = stmt.executeUpdate(updateQuery);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	// public static void add
+	// Cancel an appointment given a timestamp
+	public static void cancelAppointment(Timestamp ts) {
+
+	}
+
+	public static void exportScheduleToAFile(int id) {
+		String filename = "C:/myWebProject/currentUser.txt";
+		try {
+			FileWriter fw = new FileWriter(filename);
+			Connection conn = myConnection.getConnection();
+			PreparedStatement prep = conn.prepareStatement("select * from clients where id = ?");
+			// String query = "select * from clients";
+			// Statement stmt = conn.createStatement();
+			prep.setInt(1, id);
+			ResultSet rs = prep.executeQuery();
+			fw.append("Id");
+			fw.append('\t');
+			fw.append("Username");
+			fw.append('\t');
+			fw.append("Password");
+			fw.append('\t');
+			fw.append("Email");
+			fw.append('\t');
+			fw.append("Phone number");
+			fw.append("\r\n");
+
+			while (rs.next()) {
+				fw.append(rs.getString(1));
+				fw.append('\t');
+				fw.append(rs.getString(2));
+				fw.append('\t');
+				fw.append(rs.getString(3));
+				fw.append('\t');
+				fw.append(rs.getString(4));
+				fw.append('\t');
+				fw.append(rs.getString(5));
+				fw.append("\r\n");
+			}
+
+			PreparedStatement prepApp = conn
+					.prepareStatement("select begin, end, description from appointments where id = ?");
+			prepApp.setInt(1, id);
+			ResultSet app = prepApp.executeQuery();
+
+			while (app.next()) {
+				fw.append(app.getString(1));
+				fw.append('\t');
+				fw.append(app.getString(2));
+				fw.append('\t');
+				fw.append(app.getString(3));
+				fw.append('\t');
+				fw.append("\r\n");
+			}
+			fw.flush();
+			fw.close();
+			conn.close();
+			//System.out.println("CSV File is created successfully.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static ArrayList<String> showRepresentation(int id) {
+		ArrayList<String> l = new ArrayList<String>();
+		ArrayList<CalendarEvent> events = getAllAppointments(id);
+		for (CalendarEvent ev : events) {
+			l.add(ev.getText());
+		}
+		return l;
+	}
+
+	public static void cancelAppointmentAtIndex(int id, String description) {
+		ArrayList<CalendarEvent> events = getAllAppointments(id);
+		Connection conn = myConnection.getConnection();
+		try {
+			// Statement stmt = conn.createStatement();
+			PreparedStatement prep = conn.prepareStatement("delete from appointments where description = ?");
+			prep.setString(1, description);
+			prep.executeUpdate();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static ArrayList<CalendarEvent> getAllAppointments(int id) {
+		ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
+		Connection conn = myConnection.getConnection();
+		try {
+			Statement stmt = conn.createStatement();
+			PreparedStatement prep = conn
+					.prepareStatement("select begin, end, description from appointments where id = ?");
 			prep.setInt(1, id);
 			ResultSet r = prep.executeQuery();
 			while (r.next()) {
-				Timestamp start = r.getTimestamp("start");
+				Timestamp start = r.getTimestamp("begin");
 				Timestamp end = r.getTimestamp("end");
 				String description = r.getString("description");
-				events.add(new CalendarEventClone(start, end, description, Color.PINK));
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(start);
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH);
+				int day = cal.get(Calendar.DATE);
+				int startHour = cal.get(Calendar.HOUR_OF_DAY);
+				int startMinute = cal.get(Calendar.MINUTE);
+				
+				cal.setTime(end);
+				int endHour = cal.get(Calendar.HOUR_OF_DAY);
+				int endMinute = cal.get(Calendar.MINUTE);
+				events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(startHour, startMinute), LocalTime.of(endHour, endMinute), description, Color.PINK));
 			}
 			return events;
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return events;
-		
+
 	}
 
 }
