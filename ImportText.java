@@ -40,7 +40,7 @@ public class ImportText {
 		list.removeAll(Arrays.asList("", null));
 		for (int count = 0; count < list.size(); count++)
 		{
-			System.out.println("Count " + count + ": " + list.get(count));
+			System.out.println("Index " + count + ": " + list.get(count));
 		}
 		setID();
 		System.out.println("ID: " + ID);
@@ -57,13 +57,11 @@ public class ImportText {
 		{
 			if (jump == 2)
 			{
-				System.out.println("Description was picked");
 				setDescription(index);
 				jump = -1;
 			}
 			else
 			{
-				System.out.println("Apointment was picked");
 				setAppointment(index);
 			}
 			jump ++;
