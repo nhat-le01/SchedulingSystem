@@ -39,6 +39,7 @@ public class TimestampDemo {
 		System.out.println(month);
 		System.out.println(day);
 		System.out.println(hour);
+		
 	    
 	}
 }

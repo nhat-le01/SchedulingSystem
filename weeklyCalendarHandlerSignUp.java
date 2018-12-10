@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-public class weeklyCalendarHandler implements ActionListener {
-	public weeklyCalendarHandler() {
+public class weeklyCalendarHandlerSignUp implements ActionListener {
+	public weeklyCalendarHandlerSignUp() {
 		
 	}
 	
@@ -21,8 +21,7 @@ public class weeklyCalendarHandler implements ActionListener {
 
         ArrayList<CalendarEvent> events = new ArrayList<>();
         //Get list of appointments given user id, and then show them on the calendar
-        int id = LoginHandler.getId();
-        System.out.println(id);
+        int id = CreatenewUser.getId();
         events = databaseAction.getAllAppointments(id);
         /*
         events.add(new CalendarEvent(LocalDate.of(2016, 11, 11), LocalTime.of(14, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
@@ -76,6 +75,6 @@ public class weeklyCalendarHandler implements ActionListener {
         frm.add(cal, BorderLayout.CENTER);
         frm.setSize(1000, 900);
         frm.setVisible(true);
-        frm.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 }
