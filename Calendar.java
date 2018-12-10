@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public abstract class Calendar extends JComponent {
-    protected static final LocalTime START_TIME = LocalTime.of(0, 0);
-    protected static final LocalTime END_TIME = LocalTime.of(22, 59);
+    protected static final LocalTime START_TIME = LocalTime.of(9, 0);
+    protected static final LocalTime END_TIME = LocalTime.of(17, 0);
 
     protected static final int MIN_WIDTH = 600;
     protected static final int MIN_HEIGHT = MIN_WIDTH;
@@ -27,10 +27,10 @@ public abstract class Calendar extends JComponent {
     // An estimate of the width of a single character (not exact but good
     // enough)
     private static final int FONT_LETTER_PIXEL_WIDTH = 7;
-    protected ArrayList<CalendarEvent> events;
+    private ArrayList<CalendarEvent> events;
     private double timeScale;
-    protected double dayWidth;
-    protected Graphics2D g2;
+    private double dayWidth;
+    private Graphics2D g2;
 
     private EventListenerList listenerList = new EventListenerList();
 
@@ -173,7 +173,7 @@ public abstract class Calendar extends JComponent {
     // Gives x val of left most pixel for day col
     protected abstract double dayToPixel(DayOfWeek dayOfWeek);
 
-    protected double timeToPixel(LocalTime time) {
+    private double timeToPixel(LocalTime time) {
         return ((time.toSecondOfDay() - START_TIME.toSecondOfDay()) * timeScale) + HEADER_HEIGHT;
     }
 
@@ -311,7 +311,7 @@ public abstract class Calendar extends JComponent {
         g2.setStroke(origStroke);
     }
 
-    public void drawTimes() {
+    private void drawTimes() {
         int y;
         for (LocalTime time = START_TIME; time.compareTo(END_TIME) <= 0; time = time.plusHours(1)) {
             y = (int) timeToPixel(time) + 15;
@@ -319,7 +319,7 @@ public abstract class Calendar extends JComponent {
         }
     }
 
-    public void drawEvents() {
+    private void drawEvents() {
         double x;
         double y0;
 

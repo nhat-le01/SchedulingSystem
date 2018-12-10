@@ -5,19 +5,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
 
-public class ChangeUsernameHandler extends JFrame implements ActionListener {
+public class ImportScheduleWindow extends JFrame implements ActionListener {
 	private Button submit;
-	private static JTextField newUsername;
-	private JFrame frame;
-
-	public ChangeUsernameHandler() {
-
+	private static JTextField filePath;
+	public ImportScheduleWindow() {
+		
 	}
-
-	public static String getNewUsername() {
-		return newUsername.getText();
+	
+	public static String getFilePath() {
+		return filePath.getText();
 	}
-
 	public void actionPerformed(ActionEvent e) {
 		getContentPane().removeAll();
 		//String currentUsername = LogIn.getUsername();
@@ -26,11 +23,11 @@ public class ChangeUsernameHandler extends JFrame implements ActionListener {
 		cp.setLayout(new FlowLayout());
 
 		// Create JLabel and JTextField
-		cp.add(new JLabel("New user name"));
-		newUsername = new JTextField(20);
-		cp.add(newUsername);
+		cp.add(new JLabel("File destination"));
+		filePath = new JTextField(20);
+		cp.add(filePath);
 		submit = new Button("Submit");
-		submit.addActionListener(new ChangeUsername());
+		submit.addActionListener(new ImportScheduleHandler());
 		cp.add(submit);
 		setLocationRelativeTo(null);
 		setVisible(true);

@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.*;
 import java.awt.*;
 import java.io.FileWriter;
@@ -202,7 +201,9 @@ public class databaseAction {
 			ex.printStackTrace();
 		}
 	}
-	//A function to check if a new appointment is conflict with existing appointments
+
+	// A function to check if a new appointment is conflict with existing
+	// appointments
 	public static boolean isConflict(int id, CalendarEvent newEvent) {
 		ArrayList<CalendarEvent> currentEvents = getAllAppointments(id);
 		for (CalendarEvent e : currentEvents) {
@@ -210,13 +211,13 @@ public class databaseAction {
 			LocalTime en = e.getEnd();
 			if (s.isBefore(newEvent.getStart()) && newEvent.getStart().isBefore(en)) {
 				return true;
-			}
-			else if (newEvent.getEnd().isAfter(s) && newEvent.getStart().isBefore(s)) {
+			} else if (newEvent.getEnd().isAfter(s) && newEvent.getStart().isBefore(s)) {
 				return true;
 			}
 		}
 		return false;
 	}
+
 	public static void addAppointment(int id, int day, int month, int year, int hour, int minute, String description) {
 		// Date date = new Date(year, month, day);
 
@@ -304,7 +305,7 @@ public class databaseAction {
 			fw.flush();
 			fw.close();
 			conn.close();
-			//System.out.println("CSV File is created successfully.");
+			// System.out.println("CSV File is created successfully.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -349,20 +350,62 @@ public class databaseAction {
 				cal.setTime(start);
 				int year = cal.get(Calendar.YEAR);
 				int month = cal.get(Calendar.MONTH);
+				System.out.println("MONTH IS " + month);
 				int day = cal.get(Calendar.DATE);
 				int startHour = cal.get(Calendar.HOUR_OF_DAY);
 				int startMinute = cal.get(Calendar.MINUTE);
-				
+
 				cal.setTime(end);
 				int endHour = cal.get(Calendar.HOUR_OF_DAY);
 				int endMinute = cal.get(Calendar.MINUTE);
-				events.add(new CalendarEvent(LocalDate.of(year, month, day), LocalTime.of(startHour, startMinute), LocalTime.of(endHour, endMinute), description, Color.PINK));
+				events.add(new CalendarEvent(LocalDate.of(year, month + 1, day), LocalTime.of(startHour, startMinute),
+						LocalTime.of(endHour, endMinute), description, Color.PINK));
 			}
 			return events;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return events;
+
+	}
+
+	public static void cancelAllAppointments(int id) {
+		Connection conn = myConnection.getConnection();
+		try {
+			// Statement stmt = conn.createStatement();
+			PreparedStatement prep = conn.prepareStatement("delete from appointments where id = ?");
+			prep.setInt(1, id);
+			prep.executeUpdate();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void pushInDatabase(int id, ArrayList<String> descriptions, ArrayList<Timestamp> t) {
+		//wait but first we have delete all the previous appointments???
+		Connection conn = myConnection.getConnection();
+		//cancelAllAppointments(id);
+		int i = 0;
+		int j = 0;
+		while (i < descriptions.size() && j < t.size()) {
+			String description = descriptions.get(i);
+			Timestamp start = t.get(j);
+			Timestamp end = t.get(j + 1);
+			i += 1;
+			j += 2;
+			try {
+				Statement stmt = conn.createStatement();
+				String updateQuery = "insert into appointments values (?, ?, ?, ?)";
+				PreparedStatement prep = conn.prepareStatement("insert into appointments values (?, ?, ?, ?)");
+				prep.setInt(1, id);
+				prep.setTimestamp(2, start);
+				prep.setTimestamp(3, end);
+				prep.setString(4, description);
+				prep.executeUpdate();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
 
 	}
 

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class dailyCalendarHandler implements ActionListener {
-	public dailyCalendarHandler() {
+public class dailyCalendarHandlerSignUp implements ActionListener {
+	public dailyCalendarHandlerSignUp() {
 		
 	}
 	
@@ -16,7 +16,7 @@ public class dailyCalendarHandler implements ActionListener {
 		JFrame frm = new JFrame();
 
         ArrayList<CalendarEvent> events = new ArrayList<>();
-        int id = LoginHandler.getId();
+        int id = CreatenewUser.getId();
         events = databaseAction.getAllAppointments(id);
         /*
         events.add(new CalendarEvent(LocalDate.of(2016, 11, 11), LocalTime.of(14, 0), LocalTime.of(14, 20), "Test 11/11 14:00-14:20"));
@@ -55,6 +55,6 @@ public class dailyCalendarHandler implements ActionListener {
         frm.add(cal, BorderLayout.CENTER);
         frm.setSize(1000, 900);
         frm.setVisible(true);
-        frm.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 }

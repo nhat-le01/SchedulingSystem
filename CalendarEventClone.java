@@ -1,7 +1,9 @@
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 //import java.util.Time;
 import java.sql.Timestamp;
 public class CalendarEventClone {
@@ -18,7 +20,24 @@ public class CalendarEventClone {
     //public CalendarEventClone(Date date, Time start, Time end, String text, int selection) {
         //this(date, start, end, text, Color.PINK);
    // }
-    
+    public static void main(String[] args) {
+    	Calendar cale = new GregorianCalendar();
+	    cale.set(Calendar.YEAR, 2018);
+	    cale.set(Calendar.MONTH, 12);
+	    cale.set(Calendar.DATE, 20);
+	    cale.set(Calendar.HOUR_OF_DAY, 12);
+	    cale.set(Calendar.MINUTE, 12);
+	    Timestamp start = new Timestamp(cale.getTimeInMillis());
+	    
+	    cale.set(Calendar.YEAR, 2018);
+	    cale.set(Calendar.MONTH, 12);
+	    cale.set(Calendar.DATE, 20);
+	    cale.set(Calendar.HOUR_OF_DAY, 17);
+	    cale.set(Calendar.MINUTE, 12);
+	    Timestamp end = new Timestamp(cale.getTimeInMillis());
+    	CalendarEventClone c = new CalendarEventClone(start, end, "demo appointment", Color.PINK);
+    	System.out.println(c);
+    }
 
     public CalendarEventClone(Timestamp start, Timestamp end, String text, Color color) {
         this.start = start;
@@ -66,6 +85,10 @@ public class CalendarEventClone {
 
     public Color getColor() {
         return color;
+    }
+    
+    public String represent() {
+    	return getText();
     }
 
     @Override
