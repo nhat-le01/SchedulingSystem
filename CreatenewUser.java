@@ -8,16 +8,13 @@ import javax.swing.*;
 
 public class CreatenewUser extends JFrame implements ActionListener {
 	private static int id;
-
 	public CreatenewUser() {
-		setSize(new Dimension(1000, 500));
+		setSize(new Dimension(500, 300));
 	}
-
 	public static int getId() {
-
+		
 		return id;
 	}
-
 	public void actionPerformed(ActionEvent eve) {
 		String username = SignUp.getUsername();
 		String password = SignUp.getPassword();
@@ -26,7 +23,7 @@ public class CreatenewUser extends JFrame implements ActionListener {
 		String phonenumber = SignUp.getPhoneNumber();
 		boolean usernameExisted = databaseAction.isUsernameExisted(username);
 		if (password.equals(confirm) && !usernameExisted) {
-			// id = databaseAction.getIdGivenUsername(username);
+			//id = databaseAction.getIdGivenUsername(username);
 			databaseAction.createNewUser(username, password, email, phonenumber);
 			id = databaseAction.getIdGivenUsername(username);
 			System.out.println("user name is " + username);
@@ -39,10 +36,10 @@ public class CreatenewUser extends JFrame implements ActionListener {
 			setJMenuBar(mb);
 			JMenuItem createAccount, changeUsername, changePassword, modifyAccount, weeklyCalendar, dailyCalendar,
 					monthlyCalendar;
-			// createAccount = new JMenuItem("Create Account");
+			createAccount = new JMenuItem("Create Account");
 			changeUsername = new JMenuItem("Change user name");
 			changePassword = new JMenuItem("Change password");
-			// modifyAccount = new JMenuItem("Modify account");
+			modifyAccount = new JMenuItem("Modify account");
 			weeklyCalendar = new JMenuItem("Weekly Calendar");
 			dailyCalendar = new JMenuItem("Daily Calendar");
 			monthlyCalendar = new JMenuItem("Monthly Calendar");
@@ -55,22 +52,21 @@ public class CreatenewUser extends JFrame implements ActionListener {
 			changePhoneNumber.addActionListener(new ChangePhoneNumberHandlerWhenSignUp());
 			JMenu accountMenuBar = new JMenu("Account");
 			JMenu appointmentMenuBar = new JMenu("Appointment");
-			// JMenu settingMenuBar = new JMenu("Setting");
+			JMenu settingMenuBar = new JMenu("Setting");
 			JMenu helpMenuBar = new JMenu("Help");
 			JMenu calendarMenuBar = new JMenu("Calendar");
-			// accountMenuBar.add(createAccount);
+			accountMenuBar.add(createAccount);
 			accountMenuBar.add(changeUsername);
 			accountMenuBar.add(changePassword);
-			// accountMenuBar.add(modifyAccount);
-			accountMenuBar.add(changeEmailAddress);
-			accountMenuBar.add(changePhoneNumber);
-			// accountMenuBar.add(modifyAccount);
+			//accountMenuBar.add(modifyAccount);
+			modifyAccount.add(changeEmailAddress);
+			modifyAccount.add(changePhoneNumber);
+			accountMenuBar.add(modifyAccount);
 			calendarMenuBar.add(dailyCalendar);
 			calendarMenuBar.add(weeklyCalendar);
 			calendarMenuBar.add(monthlyCalendar);
-			dailyCalendar.addActionListener(new dailyCalendarHandlerSignUp());
-			weeklyCalendar.addActionListener(new weeklyCalendarHandlerSignUp());
-			monthlyCalendar.addActionListener(new monthlyCalendarHandlerSignUp());
+			dailyCalendar.addActionListener(new dailyCalendarHandler());
+			weeklyCalendar.addActionListener(new weeklyCalendarHandler());
 			// monthlyCalendar.addActionListener(new monthlyCalendarHandler());
 
 			appointmentMenuBar.add(new JMenuItem("Make appointment"));
@@ -79,7 +75,7 @@ public class CreatenewUser extends JFrame implements ActionListener {
 
 			mb.add(accountMenuBar);
 			mb.add(appointmentMenuBar);
-			// mb.add(settingMenuBar);
+			mb.add(settingMenuBar);
 			mb.add(helpMenuBar);
 			mb.add(calendarMenuBar);
 			setVisible(true);

@@ -8,18 +8,16 @@ import javax.swing.*;
 public class ImportScheduleWindow extends JFrame implements ActionListener {
 	private Button submit;
 	private static JTextField filePath;
-
 	public ImportScheduleWindow() {
 		setSize(new Dimension(500, 100));
 	}
-
+	
 	public static String getFilePath() {
 		return filePath.getText();
 	}
-
 	public void actionPerformed(ActionEvent e) {
 		getContentPane().removeAll();
-		// String currentUsername = LogIn.getUsername();
+		//String currentUsername = LogIn.getUsername();
 		// Invoke the user to put in new username
 		Container cp = getContentPane();
 		cp.setLayout(new FlowLayout());

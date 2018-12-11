@@ -33,7 +33,7 @@ public class LogIn extends JFrame implements ActionListener {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
-
+		
 		return true;
 	}
 
@@ -44,14 +44,14 @@ public class LogIn extends JFrame implements ActionListener {
 	public static String getUsername() {
 		return Username.getText();
 	}
-
+	
 	public static void cancelFrame() {
 		frame.dispose();
 	}
 
 	public void actionPerformed(ActionEvent evt) {
 		Welcome.cancelFrame();
-		// Container c = frame.getContentPane();
+		//Container c = frame.getContentPane();
 		frame = new JFrame("Log In");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new FlowLayout());

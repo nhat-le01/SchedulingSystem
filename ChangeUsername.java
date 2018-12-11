@@ -11,21 +11,20 @@ public class ChangeUsername extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// We should keep track of users in term of id instead of user name because
-		// username can be changed
+		//We should keep track of users in term of id instead of user name because username can be changed
 		String currentUsername = LogIn.getUsername();
 		String newUsername = ChangeUsernameHandler.getNewUsername();
 		int id = LoginHandler.getId();
-		// boolean usernameExisted = false;
+		//boolean usernameExisted = false;
 
-		// Connection conn = myConnection.getConnection();
-		// try {
-		// if (SignUp.isUserNameExisted(newUsername, conn)) {
-		// usernameExisted = true;
-		// }
-		// } catch (SQLException ex) {
-		// ex.printStackTrace();
-		// }
+		//Connection conn = myConnection.getConnection();
+		//try {
+			//if (SignUp.isUserNameExisted(newUsername, conn)) {
+				//usernameExisted = true;
+			//}
+		//} catch (SQLException ex) {
+			//ex.printStackTrace();
+		//}
 		// Check if username exists
 		if (databaseAction.isUsernameExisted(newUsername)) {
 			JOptionPane.showMessageDialog(null, "User name exists");
@@ -34,12 +33,14 @@ public class ChangeUsername extends JFrame implements ActionListener {
 			databaseAction.changeUsername(id, newUsername);
 			JOptionPane.showMessageDialog(null, "User name changed");
 			/**
-			 * try (Statement stmt = conn.createStatement();) { String strSelect = "alter
-			 * table " + currentUsername + " rename to " + newUsername;
-			 * stmt.executeUpdate(strSelect); } catch (SQLException ex) {
-			 * ex.printStackTrace(); } JOptionPane.showMessageDialog(null, "User name
-			 * changed");
-			 **/
+			try (Statement stmt = conn.createStatement();) {
+				String strSelect = "alter table " + currentUsername + " rename to " + newUsername;
+				stmt.executeUpdate(strSelect);
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+			JOptionPane.showMessageDialog(null, "User name changed");
+			**/
 		}
 	}
 }

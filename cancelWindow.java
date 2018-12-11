@@ -48,28 +48,32 @@ public class cancelWindow {
 	public cancelWindow() {
 		initialize();
 	}
-
+	
 	// Convert DefaultListModel to ArrayList
 	public ArrayList<String> test(DefaultListModel obj) {
 		ArrayList<String> temp = new ArrayList<String>();
-		for (int count = 0; count < obj.getSize(); count++) {
-			temp.add((String) obj.getElementAt(count));
+		for(int count = 0; count < obj.getSize(); count++)
+		{
+			temp.add((String)obj.getElementAt(count));
 		}
-		/*
-		 * for printing out the values for(int count = 0; count < temp.size(); count++)
-		 * { System.out.println(temp.get(count)); }
-		 */
+		/* for printing out the values
+		for(int count = 0; count < temp.size(); count++)
+		{
+			System.out.println(temp.get(count));
+		}
+		*/
 		return temp;
 	}
-
+	
 	// prints what's inside the ArrayList
 	public void printArrayList(ArrayList<String> list) {
 		// Printing out the value to see if it works
-		for (int count = 0; count < list.size(); count++) {
+		for(int count = 0; count < list.size(); count++)
+		{
 			System.out.println(list.get(count));
 		}
 	}
-
+	
 	// returns the updated ArrayList
 	public ArrayList<String> returnArrayList() {
 		return updatedArrayList;
@@ -83,95 +87,105 @@ public class cancelWindow {
 		frame.setBounds(100, 100, 1050, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
-
+		
 		JPanel header = new JPanel();
 		header.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		frame.getContentPane().add(header, BorderLayout.NORTH);
-
+		
 		JLabel headerTitle = new JLabel("Cancel Appointment");
 		headerTitle.setFont(new Font("Tahoma", Font.BOLD, 14));
 		headerTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		header.add(headerTitle);
-
+		
 		JPanel body = new JPanel();
 		frame.getContentPane().add(body, BorderLayout.CENTER);
 		body.setLayout(new GridLayout(2, 1, 3, 3));
-
+		
 		JPanel listAndScrollPanel = new JPanel();
 		listAndScrollPanel.setBorder(new EmptyBorder(14, 14, 14, 14));
 		body.add(listAndScrollPanel);
 		listAndScrollPanel.setLayout(new BorderLayout(0, 0));
-
+		
 		JLabel lblNewLabel = new JLabel("List");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		listAndScrollPanel.add(lblNewLabel, BorderLayout.NORTH);
-
+		
 		JPanel scrollPanePanel = new JPanel();
 		listAndScrollPanel.add(scrollPanePanel, BorderLayout.CENTER);
 		scrollPanePanel.setLayout(new GridLayout(1, 1, 1, 1));
-
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPanePanel.add(scrollPane);
-
+		
 		JPanel listPanel = new JPanel();
 		scrollPane.setViewportView(listPanel);
 		listPanel.setLayout(new BorderLayout(0, 0));
-
-		// testing out stuff
+		
+		//testing out stuff
 		DefaultListModel obj = new DefaultListModel();
 		ArrayList<String> arraySchedule = new ArrayList<String>();
-		String[] values = { "1", "23", "4", "23", "4", "234", "235", "", "235", "23", "34", "23", "4", "23", "42", "34",
-				"", "1", "42" };
+		String[] values = {"1", "23", "4", "23", "4", "234", "235", "", "235", "23", "34", "23", "4", "23", "42", "34", "", "1", "42"};
 		// add array elements to arrayList
-		for (int count = 0; count < values.length; count++) {
+		for (int count = 0; count < values.length; count++)
+		{
 			arraySchedule.add(values[count]);
 		}
 		// add arrayList to obj
-		for (int count = 0; count < arraySchedule.size(); count++) {
+		for (int count = 0; count < arraySchedule.size(); count++)
+		{
 			obj.addElement(arraySchedule.get(count));
 		}
-
+		
 		JList list = new JList();
 		list.setModel(obj);
-
+	
 		/*
-		 * JList list = new JList(); list.setModel(new AbstractListModel() { String[]
-		 * values = new String[] {"1", "23", "4", "23", "4", "234", "235", "", "235",
-		 * "23", "34", "23", "4", "23", "42", "34", "", "1", "42"}; public int getSize()
-		 * { return values.length; } public Object getElementAt(int index) { return
-		 * values[index]; } });
-		 */
-
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"1", "23", "4", "23", "4", "234", "235", "", "235", "23", "34", "23", "4", "23", "42", "34", "", "1", "42"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		*/
+		
 		listPanel.add(list, BorderLayout.CENTER);
-
+		
 		JPanel cancelButtonPanel = new JPanel();
 		body.add(cancelButtonPanel);
 		cancelButtonPanel.setLayout(new GridLayout(3, 3, 140, 80));
-
+		
 		JPanel emptyPanel1 = new JPanel();
 		cancelButtonPanel.add(emptyPanel1);
-
+		
 		JPanel emptyPanel2 = new JPanel();
 		cancelButtonPanel.add(emptyPanel2);
-
+		
 		JPanel emptyPanel3 = new JPanel();
 		cancelButtonPanel.add(emptyPanel3);
-
+		
 		JPanel emptyPanel4 = new JPanel();
 		cancelButtonPanel.add(emptyPanel4);
-
-		// ArrayList<String> updatedArrayList = new ArrayList<String>();
+	
+		//ArrayList<String> updatedArrayList = new ArrayList<String>();
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (list.getSelectedIndex() == -1) {
+				if (list.getSelectedIndex() == -1)
+				{
 					// Do nothing
-				} else {
+				}
+				else
+				{
 					updatedArrayList.clear();
 					obj.removeElementAt(list.getSelectedIndex());
 					ArrayList<String> store = test(obj);
-					for (int count = 0; count < store.size(); count++) {
+					for (int count = 0; count < store.size(); count++)
+					{
 						updatedArrayList.add(store.get(count));
 					}
 					printArrayList(updatedArrayList);
@@ -180,16 +194,16 @@ public class cancelWindow {
 		});
 		cancelButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		cancelButtonPanel.add(cancelButton);
-
+		
 		JPanel emptyPanel5 = new JPanel();
 		cancelButtonPanel.add(emptyPanel5);
-
+		
 		JPanel emptyPanel6 = new JPanel();
 		cancelButtonPanel.add(emptyPanel6);
-
+		
 		JPanel emptyPanel7 = new JPanel();
 		cancelButtonPanel.add(emptyPanel7);
-
+		
 		JPanel emptyPanel8 = new JPanel();
 		cancelButtonPanel.add(emptyPanel8);
 	}

@@ -10,30 +10,32 @@ public class ConflictChecker {
 	private Timestamp xStart, xEnd, yStart, yEnd;
 	private String xText, yText;
 	private Color xColor, yColor;
-
+	
 	// constructor for ConflictChecker
-	public ConflictChecker(CalendarEventClone x, CalendarEventClone y) {
+	public ConflictChecker(CalendarEventClone x, CalendarEventClone y)
+	{
 		// Timestamp Start & End
 		xStart = x.getStart();
 		xEnd = x.getEnd();
 		yStart = y.getStart();
 		yEnd = y.getEnd();
-		// String
+		// String 
 		xText = x.getText();
 		yText = y.getText();
 		// Color
 		xColor = x.getColor();
 		yColor = y.getColor();
 	}
-
-	public boolean check() {
+	
+	public boolean check()
+	{
 		boolean colorSwitch = false;
-		if (xColor.getRGB() == yColor.getRGB()) {
+		if(xColor.getRGB() == yColor.getRGB()) 
+		{
 			colorSwitch = true;
 		}
 		boolean flag = false;
-		if ((xStart.compareTo(yStart) == 0) && (xEnd.compareTo(yEnd) == 0) && (xText.equals(yText))
-				&& (colorSwitch == true))
+		if ((xStart.compareTo(yStart) == 0) && (xEnd.compareTo(yEnd) == 0) && (xText.equals(yText)) && (colorSwitch == true))
 			flag = true;
 		return flag;
 	}

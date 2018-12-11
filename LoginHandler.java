@@ -35,16 +35,15 @@ public class LoginHandler extends JFrame implements ActionListener {
 				setJMenuBar(mb);
 				JMenuItem createAccount, changeUsername, changePassword, modifyAccount, weeklyCalendar, dailyCalendar,
 						monthlyCalendar, changePhoneNumber, changeEmailAddress, exportToAFile, importSchedule;
-				// createAccount = new JMenuItem("Create Account");
+				createAccount = new JMenuItem("Create Account");
 				changeUsername = new JMenuItem("Change user name");
 				changePassword = new JMenuItem("Change password");
-				// modifyAccount = new JMenuItem("Modify account");
+				modifyAccount = new JMenuItem("Modify account");
 				weeklyCalendar = new JMenuItem("Weekly Calendar");
 				weeklyCalendar.addActionListener(new weeklyCalendarHandler());
 				dailyCalendar = new JMenuItem("Daily Calendar");
 				dailyCalendar.addActionListener(new dailyCalendarHandler());
 				monthlyCalendar = new JMenuItem("Monthly Calendar");
-				monthlyCalendar.addActionListener(new monthlyCalendarHandler());
 				changeEmailAddress = new JMenuItem("Change email address");
 				changePhoneNumber = new JMenuItem("Change phone number");
 				exportToAFile = new JMenuItem("Export to a file");
@@ -105,7 +104,7 @@ public class LoginHandler extends JFrame implements ActionListener {
 							fw.flush();
 							fw.close();
 							conn.close();
-							// System.out.println("CSV File is created successfully.");
+							//System.out.println("CSV File is created successfully.");
 							JOptionPane.showMessageDialog(null, "Exported Successfully");
 						} catch (Exception ex) {
 							ex.printStackTrace();
@@ -116,13 +115,13 @@ public class LoginHandler extends JFrame implements ActionListener {
 
 				JMenu accountMenuBar = new JMenu("Account");
 				JMenu appointmentMenuBar = new JMenu("Appointment");
-				// JMenu settingMenuBar = new JMenu("Setting");
-				// JMenu helpMenuBar = new JMenu("Help");
+				JMenu settingMenuBar = new JMenu("Setting");
+				JMenu helpMenuBar = new JMenu("Help");
 				JMenu calendarMenuBar = new JMenu("Calendar");
-				// accountMenuBar.add(createAccount);
+				accountMenuBar.add(createAccount);
 				accountMenuBar.add(changeUsername);
 				accountMenuBar.add(changePassword);
-				// accountMenuBar.add(modifyAccount);
+				accountMenuBar.add(modifyAccount);
 				accountMenuBar.add(changeEmailAddress);
 				accountMenuBar.add(changePhoneNumber);
 
@@ -131,8 +130,8 @@ public class LoginHandler extends JFrame implements ActionListener {
 				calendarMenuBar.add(monthlyCalendar);
 				calendarMenuBar.add(exportToAFile);
 				calendarMenuBar.add(importSchedule);
-				// dailyCalendar.addActionListener(new dailyCalendarHandler());
-				// weeklyCalendar.addActionListener(new weeklyCalendarHandler());
+				//dailyCalendar.addActionListener(new dailyCalendarHandler());
+				//weeklyCalendar.addActionListener(new weeklyCalendarHandler());
 
 				JMenuItem makeAppointment = new JMenuItem("Make appointment");
 				makeAppointment.addActionListener(new SetAppointmentWindow());
@@ -143,11 +142,15 @@ public class LoginHandler extends JFrame implements ActionListener {
 				JMenuItem changeAppointment = new JMenuItem("Change appointment");
 				changeAppointment.addActionListener(new editAppointmentWindow());
 				appointmentMenuBar.add(changeAppointment);
+				
+				JMenuItem emailAppointment = new JMenuItem("Schedule Reminder");
+				emailAppointment.addActionListener(new emailWindow());
+				appointmentMenuBar.add(emailAppointment);
 
 				mb.add(accountMenuBar);
 				mb.add(appointmentMenuBar);
-				// mb.add(settingMenuBar);
-				// mb.add(helpMenuBar);
+				mb.add(settingMenuBar);
+				mb.add(helpMenuBar);
 				mb.add(calendarMenuBar);
 				setLocationRelativeTo(null);
 				setSize(500, 500);

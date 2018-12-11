@@ -21,7 +21,7 @@ public class ImportTester {
 	}
 
 	public void pushInDatabase(int id, ArrayList<String> descriptions, ArrayList<Timestamp> t) {
-		// wait but first we have delete all the previous appointments???
+		//wait but first we have delete all the previous appointments???
 		Connection conn = myConnection.getConnection();
 		int i = 0;
 		int j = 0;

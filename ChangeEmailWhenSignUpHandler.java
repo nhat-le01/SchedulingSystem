@@ -5,21 +5,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
 
-public class ChangeEmailWhenSignUpHandler extends JFrame implements ActionListener {
+public class ChangeEmailWhenSignUpHandler extends JFrame implements ActionListener{
 	private Button submit;
 	private static JTextField newEmail;
-
 	public ChangeEmailWhenSignUpHandler() {
-
+		
 	}
-
+	
+	
 	public static String getNewEmail() {
 		return newEmail.getText();
 	}
-
 	public void actionPerformed(ActionEvent e) {
 		getContentPane().removeAll();
-		// String currentUsername = LogIn.getUsername();
+		//String currentUsername = LogIn.getUsername();
 		// Invoke the user to put in new username
 		Container cp = getContentPane();
 		cp.setLayout(new FlowLayout());

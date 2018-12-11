@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 
-public class cancelAppointmentWindow implements ActionListener {
+public class cancelAppointmentWindow implements ActionListener{
 
 	private JFrame frame;
 	private ArrayList<String> updatedArrayList = new ArrayList<String>();
