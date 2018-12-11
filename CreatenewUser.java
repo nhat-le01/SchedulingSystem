@@ -9,9 +9,10 @@ import javax.swing.*;
 public class CreatenewUser extends JFrame implements ActionListener {
 	private static int id;
 	public CreatenewUser() {
-
+		setSize(new Dimension(1000, 500));
 	}
 	public static int getId() {
+		
 		return id;
 	}
 	public void actionPerformed(ActionEvent eve) {

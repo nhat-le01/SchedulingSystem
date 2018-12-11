@@ -11,7 +11,7 @@ public class ChangePasswordHandler extends JFrame implements ActionListener {
 	private static JPasswordField newPassword;
 
 	public ChangePasswordHandler() {
-
+		setSize(new Dimension(500, 300));
 	}
 
 	public static String getNewPassword() {

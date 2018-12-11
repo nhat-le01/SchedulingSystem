@@ -9,7 +9,7 @@ public class ImportScheduleWindow extends JFrame implements ActionListener {
 	private Button submit;
 	private static JTextField filePath;
 	public ImportScheduleWindow() {
-		
+		setSize(new Dimension(500, 100));
 	}
 	
 	public static String getFilePath() {

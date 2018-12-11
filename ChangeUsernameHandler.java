@@ -11,7 +11,7 @@ public class ChangeUsernameHandler extends JFrame implements ActionListener {
 	private JFrame frame;
 
 	public ChangeUsernameHandler() {
-
+		setSize(new Dimension(500, 300));
 	}
 
 	public static String getNewUsername() {

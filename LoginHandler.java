@@ -61,7 +61,7 @@ public class LoginHandler extends JFrame implements ActionListener {
 							Connection conn = myConnection.getConnection();
 							PreparedStatement prep = conn.prepareStatement("select * from clients where id = ?");
 
-							prep.setInt(1, 1);
+							prep.setInt(1, id);
 							ResultSet rs = prep.executeQuery();
 							fw.append("Id");
 							fw.append('\t');
@@ -89,7 +89,7 @@ public class LoginHandler extends JFrame implements ActionListener {
 
 							PreparedStatement prepApp = conn
 									.prepareStatement("select begin, end, description from appointments where id = ?");
-							prepApp.setInt(1, 3);
+							prepApp.setInt(1, id);
 							ResultSet app = prepApp.executeQuery();
 
 							while (app.next()) {

@@ -9,7 +9,7 @@ public class ChangeEmailHandlerWhenLogIn extends JFrame implements ActionListene
 	private Button submit;
 	private static JTextField newEmail;
 	public ChangeEmailHandlerWhenLogIn() {
-		
+		setSize(new Dimension(500, 300));
 	}
 	
 	

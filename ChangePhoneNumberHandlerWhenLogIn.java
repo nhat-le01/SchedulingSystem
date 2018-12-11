@@ -9,7 +9,7 @@ public class ChangePhoneNumberHandlerWhenLogIn extends JFrame implements ActionL
 	private Button submit;
 	private static JTextField newPhoneNumber;
 	public ChangePhoneNumberHandlerWhenLogIn() {
-		
+		setSize(new Dimension(500, 300));
 	}
 	
 	
