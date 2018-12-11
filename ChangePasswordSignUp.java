@@ -19,24 +19,18 @@ public class ChangePasswordSignUp implements ActionListener {
 		databaseAction.changePassword(id, newPassword);
 		JOptionPane.showMessageDialog(null, "Password changed");
 		/**
-		String currentUser;
-		if (ChangeUsernameSignUp.isUsernameChanged()) {
-			currentUser = ChangeUsernameSignUp.newUsername();
-		} else {
-			currentUser = SignUp.getUsername();
-		}
-
-		// String currentUser = LogIn.getUsername();
-		String newPassword = ChangePasswordHandlerWhenSignUp.getNewPassword();
-		Connection conn = myConnection.getConnection();
-		try (Statement stmt = conn.createStatement();) {
-			String update = "update " + currentUser + " set password = '" + newPassword + "' where description = '1'";
-			int rset = stmt.executeUpdate(update);
-			System.out.println("record affected " + rset);
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		**/
+		 * String currentUser; if (ChangeUsernameSignUp.isUsernameChanged()) {
+		 * currentUser = ChangeUsernameSignUp.newUsername(); } else { currentUser =
+		 * SignUp.getUsername(); }
+		 * 
+		 * // String currentUser = LogIn.getUsername(); String newPassword =
+		 * ChangePasswordHandlerWhenSignUp.getNewPassword(); Connection conn =
+		 * myConnection.getConnection(); try (Statement stmt = conn.createStatement();)
+		 * { String update = "update " + currentUser + " set password = '" + newPassword
+		 * + "' where description = '1'"; int rset = stmt.executeUpdate(update);
+		 * System.out.println("record affected " + rset); } catch (SQLException ex) {
+		 * ex.printStackTrace(); }
+		 **/
 
 	}
 }

@@ -109,15 +109,15 @@ public class ImportText {
 	public void printList() {
 		System.out.println(list);
 	}
+
 	public ArrayList<String> getDescription() {
 		return description;
 	}
 
-
 	public void printDescription() {
 		System.out.println(description);
 	}
-	
+
 	public void printTimestamp() {
 		System.out.println(time);
 	}
@@ -141,8 +141,6 @@ public class ImportText {
 	public String getPhone() {
 		return phone;
 	}
-
-	
 
 	public ArrayList<Timestamp> getTimestamp() {
 		return time;

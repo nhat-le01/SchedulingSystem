@@ -380,11 +380,11 @@ public class databaseAction {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public static void pushInDatabase(int id, ArrayList<String> descriptions, ArrayList<Timestamp> t) {
-		//wait but first we have delete all the previous appointments???
+		// wait but first we have delete all the previous appointments???
 		Connection conn = myConnection.getConnection();
-		//cancelAllAppointments(id);
+		// cancelAllAppointments(id);
 		int i = 0;
 		int j = 0;
 		while (i < descriptions.size() && j < t.size()) {

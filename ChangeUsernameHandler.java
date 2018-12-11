@@ -20,7 +20,7 @@ public class ChangeUsernameHandler extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		getContentPane().removeAll();
-		//String currentUsername = LogIn.getUsername();
+		// String currentUsername = LogIn.getUsername();
 		// Invoke the user to put in new username
 		Container cp = getContentPane();
 		cp.setLayout(new FlowLayout());

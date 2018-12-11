@@ -24,10 +24,10 @@ public class ChangeUsernameSignUp implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		// find the table with that username, and then change the password field where
-		//String currentUsername = LogIn.getUsername();
+		// String currentUsername = LogIn.getUsername();
 		String newUsername = ChangeUsernameHandlerWhenSignUp.getNewUsername();
 		int id = CreatenewUser.getId();
-		
+
 		if (databaseAction.isUsernameExisted(newUsername)) {
 			JOptionPane.showMessageDialog(null, "User name exists");
 		} else {

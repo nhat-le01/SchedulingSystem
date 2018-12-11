@@ -21,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 
-public class emailWindow implements ActionListener{
+public class emailWindow implements ActionListener {
 
 	private JFrame frame;
 	private ArrayList<String> updatedArrayList = new ArrayList<String>();
@@ -192,7 +192,7 @@ public class emailWindow implements ActionListener{
 
 		JPanel emptyPanel7 = new JPanel();
 		cancelButtonPanel.add(emptyPanel7);
-		
+
 		JButton button = new JButton("Cancel");
 		button.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		emptyPanel7.add(button);
